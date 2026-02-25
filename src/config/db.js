@@ -10,11 +10,17 @@ const pool = mysql.createPool({
   ssl: {
     rejectUnauthorized: false
   },
-  // ESTA ES LA LÍNEA QUE SOLUCIONA LO DE LA HORA:
-  timezone: "-05:00",
+  // Configuración de zona horaria para el driver
+  timezone: "-05:00", 
+  // Configuración para no exceder el límite de Clever Cloud
   waitForConnections: true,
-  connectionLimit: 10,
+  connectionLimit: 5, // Bajamos de 10 a 5 por el límite de tu plan
   queueLimit: 0,
+});
+
+// Esta función fuerza a MySQL a usar tu horario local en cada conexión
+pool.on('connection', function (connection) {
+  connection.query("SET time_zone = '-05:00';");
 });
 
 module.exports = pool;
