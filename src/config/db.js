@@ -10,6 +10,8 @@ const pool = mysql.createPool({
   ssl: {
     rejectUnauthorized: false
   },
+  // ESTA ES LA LÍNEA QUE SOLUCIONA LO DE LA HORA:
+  timezone: "-05:00",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
