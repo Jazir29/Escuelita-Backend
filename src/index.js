@@ -11,11 +11,16 @@ const verifyToken   = require('./middlewares/verifyToken');
 const app  = express();
 const PORT = process.env.PORT || 3001;
 
+const allowedOrigins = process.env.ALLOWED_ORIGINS 
+  ? process.env.ALLOWED_ORIGINS.split(',')
+  : ['http://localhost:5173'];
+
 // ── Middleware ─────────────────────────────────────────────
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: allowedOrigins,
   credentials: true,   // Necesario para enviar/recibir cookies
 }));
+
 app.use(express.json());
 app.use(cookieParser());
 
