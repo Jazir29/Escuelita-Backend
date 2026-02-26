@@ -5,8 +5,8 @@ const jwt    = require('jsonwebtoken');
 const COOKIE_NAME = 'auth_token';
 const COOKIE_OPTS = {
   httpOnly: true,       // JS no puede leer la cookie
-  secure: false,        // Cambiar a true en producción (HTTPS)
-  sameSite: 'lax',
+  secure: true,        // Cambiar a true en producción (HTTPS)
+  sameSite: 'none',
   maxAge: 8 * 60 * 60 * 1000, // 8 horas
 };
 
