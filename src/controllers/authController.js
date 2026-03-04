@@ -21,6 +21,7 @@ const login = async (req, res) => {
     const [rows] = await pool.query('CALL sp_GetUserByEmail(?)', [email]);
     const user = rows[0][0];
 
+    //Verificar si el usuario existe
     if (!user)
       return res.status(401).json({ message: 'Credenciales incorrectas' });
 
@@ -84,9 +85,9 @@ const register = async (req, res) => {
     res.status(201).json({
       message: 'Usuario creado exitosamente',
       user: newUser
-    });
+    }); 
   } catch (err) {
-  console.error('ERROR LOGIN:', err.message); // ← agrega esto
+  console.error('ERROR REGISTER:', err.message);
   res.status(500).json({ message: 'Error en el servidor', error: err.message });
 }
 };

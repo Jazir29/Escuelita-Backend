@@ -78,7 +78,7 @@ const update = async (req, res) => {
 
   const conn = await pool.getConnection();
   try {
-    // Verificar que existe y no está Completed — todo via SP
+    // Verificar que existe y no está Completado — todo via SP
     const [check] = await conn.query("CALL sp_GetOrderById(?)", [req.params.id]);
     const existing = parseOrderResult(check);
     if (!existing) return res.status(404).json({ message: "Orden no encontrada" });
