@@ -9,7 +9,7 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME || "orders_db",
   ssl: { rejectUnauthorized: false },
   waitForConnections: true,
-  connectionLimit: 4,   // ← mantener esto
+  connectionLimit: 4,
   queueLimit: 0,
 });
 
