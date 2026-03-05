@@ -16,4 +16,9 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
+// Fuerza la zona horaria de Lima en cada conexión
+pool.on('connection', (connection) => {
+  connection.query("SET time_zone = '-05:00'");
+});
+
 module.exports = pool;
