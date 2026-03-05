@@ -10,16 +10,13 @@ const pool = mysql.createPool({
   timezone: '-05:00',
   ssl: { rejectUnauthorized: false },
   waitForConnections: true,
-  connectionLimit: 4,        // ← reducido para no exceder el límite del plan
+  connectionLimit: 4,
   queueLimit: 0,
 });
 
-// Inicializa timezone en cada conexión nueva
-const originalGetConnection = pool.getConnection.bind(pool);
-pool.getConnection = async () => {
-  const conn = await originalGetConnection();
-  await conn.query("SET time_zone = '-05:00'");
-  return conn;
-};
+// Accede al pool interno (no-promise) donde el evento sí funciona
+pool.pool.on('connection', (connection) => {
+  connection.query("SET time_zone = '-05:00'");
+});
 
 module.exports = pool;
